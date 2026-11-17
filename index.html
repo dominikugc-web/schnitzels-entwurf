@@ -205,14 +205,20 @@
 
   // aktive Kategorie in der Leiste markieren und sichtbar halten
   const links = Object.fromEntries([...nav.children].map(a => [a.hash.slice(1), a]));
-  const io = new IntersectionObserver(entries => entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    Object.values(links).forEach(a => a.classList.remove("on"));
-    const a = links[e.target.id];
-    a.classList.add("on");
-    nav.scrollTo({ left: a.offsetLeft - 16, behavior: "smooth" });
-  }), { rootMargin: "-40% 0px -55% 0px" });
-  document.querySelectorAll("section.cat").forEach(s => io.observe(s));
+  const secs = [...document.querySelectorAll("section.cat")];
+  let current;
+  const mark = () => {
+    // letzte Kategorie, deren Anfang schon unter der Leiste durch ist
+    const s = secs.filter(s => s.getBoundingClientRect().top < 160).pop();
+    const a = s && links[s.id];
+    if (a === current) return;
+    current?.classList.remove("on");
+    current = a;
+    if (a) { a.classList.add("on"); nav.scrollTo({ left: a.offsetLeft - 16, behavior: "smooth" }); }
+  };
+  addEventListener("scroll", mark, { passive: true });
+  addEventListener("load", mark);
+  mark();
 </script>
 </body>
 </html>
