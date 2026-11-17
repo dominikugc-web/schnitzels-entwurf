@@ -79,6 +79,8 @@
   .dish:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgb(59 15 30 / .12); }
   .dish .ph { aspect-ratio: 4 / 3; background: var(--wood); }
   .dish .ph img { width: 100%; height: 100%; object-fit: cover; }
+  .dish .ph { position: relative; }
+  .dish .ki { position: absolute; left: 8px; bottom: 8px; font-size: 11px; padding: 2px 7px; border-radius: 99px; background: rgb(0 0 0 / .55); color: #fff; }
   .dish .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .dish h3 { font-size: 21px; }
   .dish p { margin: 0; color: var(--muted); font-size: 16px; flex: 1; }
@@ -158,7 +160,7 @@
       <div><h3>Reservierung</h3><p><a href="tel:+496431217587">06431 217587</a><br><a href="mailto:info@schnitzel-s.com">info@schnitzel-s.com</a></p></div>
       <div><h3>Folgen</h3><p><a href="https://www.facebook.com/schnitzels" target="_blank" rel="noopener">Facebook</a></p></div>
     </div>
-    <p class="note">Entwurf einer neuen Website, nicht die offizielle Seite. Die Bilder von Wiener Art, Almöhi, Jean Gabin, Weit, weit weg, Mexico, NYC Steuben, Ösi Schnitzel und Kaiserschmarrn sind echte Fotos von der Facebook-Seite von Schnitzel’s, alle übrigen sind KI-generierte Symbolbilder. Preise und Texte von schnitzel-s.de, Stand 17.11.2026.</p>
+    <p class="note">Entwurf einer neuen Website, nicht die offizielle Seite. Die Gerichtsfotos stammen von schnitzel-s.de und der Facebook-Seite von Schnitzel’s. Wo es noch kein Foto gibt, steht ein KI-generiertes Symbolbild, im Bild als solches markiert. Preise und Texte von schnitzel-s.de, Stand 17.11.2026.</p>
   </div>
 </footer>
 
@@ -167,9 +169,11 @@
   const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const price = ([l, p]) => `<span>${esc(l)}<b>${p} €</b></span>`;
 
+  // echte Fotos von schnitzel-s.de und Facebook, alle anderen sind KI-Symbolbilder
+  const FOTO = new Set(["k-wiener", "k-zigeuner", "s-mahattma", "s-almoehi", "s-wiener", "g-gordon", "c-gabin", "c-weitweg", "c-mexico", "c-nyc", "c-oesi", "sa-schnitzels", "sa-nico", "m-kaesspatzen", "m-max", "m-lady", "d-kaiserschmarrn"]);
   const dish = it => `
     <article class="dish${it.wide ? " wide" : ""}">
-      <div class="ph"><img src="img/${it.img}.webp" alt="${esc(it.n)}" loading="lazy" width="900" height="675"></div>
+      <div class="ph"><img src="img/${it.img}.webp" alt="${esc(it.n)}" loading="lazy" width="900" height="675">${FOTO.has(it.img) ? "" : `<span class="ki">KI-Symbolbild</span>`}</div>
       <div class="body">
         <h3>${esc(it.n)}</h3>
         <p>${esc(it.d)}</p>
