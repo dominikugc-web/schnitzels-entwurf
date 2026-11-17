@@ -170,7 +170,7 @@
   const price = ([l, p]) => `<span>${esc(l)}<b>${p} €</b></span>`;
 
   // echte Fotos von schnitzel-s.de und Facebook, alle anderen sind KI-Symbolbilder
-  const FOTO = new Set(["k-wiener", "k-zigeuner", "s-mahattma", "s-almoehi", "s-wiener", "g-gordon", "c-gabin", "c-weitweg", "c-mexico", "c-nyc", "c-oesi", "sa-schnitzels", "sa-nico", "m-kaesspatzen", "m-max", "m-lady", "d-kaiserschmarrn"]);
+  const FOTO = new Set(["k-wiener", "k-zigeuner", "s-mahattma", "s-almoehi", "s-wiener", "g-gordon", "c-gabin", "c-weitweg", "c-mexico", "c-nyc", "c-oesi", "sa-schnitzels", "sa-nico", "m-kaesspatzen", "m-max", "m-lady", "d-kaiserschmarrn", "d-strudel", "d-eis", "m-rump", "ki-raeuber", "b-kroketten", "b-ecken"]);
   const dish = it => `
     <article class="dish${it.wide ? " wide" : ""}">
       <div class="ph"><img src="img/${it.img}.webp" alt="${esc(it.n)}" loading="lazy" width="900" height="675">${FOTO.has(it.img) ? "" : `<span class="ki">KI-Symbolbild</span>`}</div>
