@@ -35,6 +35,23 @@
   .btn-gold { background: linear-gradient(180deg, var(--gold), var(--gold-deep)); color: #fff; box-shadow: 0 6px 18px rgb(185 86 15 / .35); }
   .btn-ghost { border: 2px solid rgb(255 255 255 / .5); color: #fff; }
   .top .btn { padding: 8px 16px; font-size: 15px; }
+  .tr { display: flex; align-items: center; gap: 8px; }
+  .lang { display: flex; padding: 3px; border: 2px solid rgb(255 255 255 / .35); border-radius: 999px; background: none; cursor: pointer; font: 700 13px/1 "Source Sans 3", sans-serif; }
+  .lang span { padding: 6px 8px; border-radius: 999px; color: rgb(255 255 255 / .7); }
+  .lang span.on { background: #fff; color: var(--wine-dark); }
+
+  /* So geht's: Schnitzel zusammenstellen */
+  .how { margin-top: -32px; position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px 20px; box-shadow: 0 14px 30px rgb(59 15 30 / .12); }
+  .how h2 { font-size: clamp(26px, 4.5vw, 36px); color: var(--wine); }
+  .how > p { margin: 8px 0 20px; color: var(--muted); max-width: 760px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .steps li { display: flex; gap: 14px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+  .steps .n { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--wine); color: #fff; font: 800 20px Fraunces, serif; }
+  .steps li:last-child .n { background: var(--gold-deep); }
+  .steps h3 { font-size: 19px; color: var(--ink); }
+  .steps p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+  .steps a { color: var(--wine); font-weight: 700; }
+  @media (min-width: 980px) { .how { padding: 30px 32px; } .steps { grid-template-columns: repeat(5, 1fr); } .steps li { flex-direction: column; } }
 
   .hero { background: radial-gradient(120% 90% at 50% 0%, #7a2240 0%, var(--wine) 45%, var(--wine-dark) 100%); color: #fff; text-align: center; padding: 48px 0 64px; }
   .hero img { width: min(420px, 85%); margin: 0 auto 24px; height: auto; }
@@ -43,7 +60,7 @@
   .hero .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
   /* Infos */
-  .info { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: -32px; position: relative; }
+  .info { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 20px; }
   .box { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
   .box h3 { font-size: 19px; color: var(--wine); margin-bottom: 8px; }
   .box p { margin: 0; color: var(--muted); }
@@ -113,38 +130,53 @@
 <header class="top">
   <div class="wrap">
     <a href="#"><img src="logo.png" alt="Schnitzel’s, Das Original, Die Villa" width="94" height="44"></a>
-    <a class="btn btn-gold" href="tel:+496431217587">Tisch reservieren</a>
+    <div class="tr">
+      <button class="lang" id="lang" type="button" aria-label="Sprache wählen / Выбрать язык"><span data-l="de">DE</span><span data-l="ru">RU</span></button>
+      <a class="btn btn-gold" href="tel:+496431217587" data-t="reserve">Tisch reservieren</a>
+    </div>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
     <img src="logo.png" alt="" width="680" height="318">
-    <h1>Schnitzel dich glücklich!</h1>
-    <p>Klassisch, gefüllt, überbacken oder mit ausgefallenem Topping. Bei uns spielt das Schnitzel die Hauptrolle, und Sie stellen es sich so zusammen, wie es Ihnen am besten schmeckt.</p>
+    <h1 data-t="hero_h1">Schnitzel dich glücklich!</h1>
+    <p data-t="hero_p">Klassisch, gefüllt, überbacken oder mit ausgefallenem Topping. Bei uns spielt das Schnitzel die Hauptrolle, und Sie stellen es sich so zusammen, wie es Ihnen am besten schmeckt.</p>
     <div class="row">
-      <a class="btn btn-gold" href="#klassiker">Zur Speisekarte</a>
+      <a class="btn btn-gold" href="#klassiker" data-t="to_menu">Zur Speisekarte</a>
       <a class="btn btn-ghost" href="tel:+496431217587">06431 217587</a>
     </div>
   </div>
 </section>
 
 <main class="wrap">
+  <section class="how" aria-labelledby="how-h">
+    <h2 id="how-h" data-t="how_h">So stellen Sie Ihr Schnitzel zusammen</h2>
+    <p data-t="how_p">Natürlich haben die Schnitzel im Schnitzel’s einen ganz besonderen Stellenwert. Bei uns stellen Sie sich Ihr Schnitzelgericht nach Herzenslust zusammen, genau so, wie es Ihnen am besten schmeckt.</p>
+    <ol class="steps">
+      <li><span class="n">1</span><div><h3 data-t="s1_h">Schnitzel aussuchen</h3><p data-t="s1_p">Vom Schwein oder aus dem Hähnchenbrustfilet, paniert oder natur</p></div></li>
+      <li><span class="n">2</span><div><h3 data-t="s2_h">Größe auswählen</h3><p data-t="s2_p">1 Schnitzel oder 2 Schnitzel<br><strong>Schwein:</strong> 1 Stück 13,90 €, 2 Stück 17,90 €<br><strong>Hähnchen:</strong> 1 Stück 14,90 €, 2 Stück 19,90 €</p></div></li>
+      <li><span class="n">3</span><div><h3 data-t="s3_h">Zubereitung oder Soße auswählen</h3><p data-t="s3_p">Wiener Art oder eine unserer 8 Soßen. <a href="#klassiker">Zur Auswahl</a></p></div></li>
+      <li><span class="n">4</span><div><h3 data-t="s4_h">Beilage(n) auswählen</h3><p data-t="s4_p">Fritten, Kartoffelecken, Bratkartoffeln, Kroketten, Spätzle oder Salat. <a href="#beilagen">Zu den Beilagen</a></p></div></li>
+      <li><span class="n">5</span><div><h3 data-t="s5_h">Schmecken lassen</h3><p data-t="s5_p">Guten Appetit!</p></div></li>
+    </ol>
+  </section>
+
   <div class="info">
-    <div class="box"><h3>Öffnungszeiten</h3><p><strong>Di bis Sa</strong> 17:00 bis 23:00 Uhr<br><strong>So</strong> 11:30 bis 14:00 und 17:00 bis 22:00 Uhr<br>Montag Ruhetag</p></div>
-    <div class="box"><h3>Küche</h3><p><strong>Di, Mi, Do, So</strong> 17:00 bis 21:00 Uhr<br><strong>Fr, Sa</strong> 17:00 bis 21:30 Uhr<br>Bei gutem Wetter mit Biergarten</p></div>
-    <div class="box"><h3>So finden Sie uns</h3><p>Elzer Str. 2 bis 4<br>65556 Limburg-Staffel<br><a href="https://www.google.com/maps/search/?api=1&query=Schnitzel's+Elzer+Str.+2+65556+Limburg" target="_blank" rel="noopener">Route planen</a></p></div>
+    <div class="box"><h3 data-t="hours_h">Öffnungszeiten</h3><p data-t="hours_p"><strong>Di bis Sa</strong> 17:00 bis 23:00 Uhr<br><strong>So</strong> 11:30 bis 14:00 und 17:00 bis 22:00 Uhr<br>Montag Ruhetag</p></div>
+    <div class="box"><h3 data-t="kitchen_h">Küche</h3><p data-t="kitchen_p"><strong>Di, Mi, Do, So</strong> 17:00 bis 21:00 Uhr<br><strong>Fr, Sa</strong> 17:00 bis 21:30 Uhr<br>Bei gutem Wetter mit Biergarten</p></div>
+    <div class="box"><h3 data-t="find_h">So finden Sie uns</h3><p>Elzer Str. 2-4<br>65556 Limburg-Staffel<br><a href="https://www.google.com/maps/search/?api=1&query=Schnitzel's+Elzer+Str.+2+65556+Limburg" target="_blank" rel="noopener" data-t="route">Route planen</a></p></div>
   </div>
 
   <div class="tuesday">
     <div>
-      <h2>Dienstag ist Schnitzeltag</h2>
-      <p>Alle Schnitzel-Klassiker inklusive Pommes zum Schnitzel-Jagd-Preis.</p>
+      <h2 data-t="tue_h">Dienstag ist Schnitzeltag</h2>
+      <p data-t="tue_p">Alle Schnitzel-Klassiker inklusive Pommes zum Schnitzel-Jagd-Preis.</p>
     </div>
     <div class="plates">
-      <div class="plate"><b>14,90 €</b><span>Magdteller<br>1 Schnitzel</span></div>
-      <div class="plate"><b>18,90 €</b><span>Knechtteller<br>2 Schnitzel</span></div>
-      <div class="plate"><b>25,90 €</b><span>Bauernteller<br>3 Schnitzel</span></div>
+      <div class="plate"><b>14,90 €</b><span data-t="plate1">Magdteller<br>1 Schnitzel</span></div>
+      <div class="plate"><b>18,90 €</b><span data-t="plate2">Knechtteller<br>2 Schnitzel</span></div>
+      <div class="plate"><b>25,90 €</b><span data-t="plate3">Bauernteller<br>3 Schnitzel</span></div>
     </div>
   </div>
 </main>
@@ -156,61 +188,88 @@
 <footer>
   <div class="wrap">
     <div class="cols">
-      <div><h3>Schnitzel’s</h3><p>Elzer Str. 2 bis 4<br>65556 Limburg-Staffel</p></div>
-      <div><h3>Reservierung</h3><p><a href="tel:+496431217587">06431 217587</a><br><a href="mailto:info@schnitzel-s.com">info@schnitzel-s.com</a></p></div>
-      <div><h3>Folgen</h3><p><a href="https://www.facebook.com/schnitzels" target="_blank" rel="noopener">Facebook</a></p></div>
+      <div><h3>Schnitzel’s</h3><p>Elzer Str. 2-4<br>65556 Limburg-Staffel</p></div>
+      <div><h3 data-t="f_res">Reservierung</h3><p><a href="tel:+496431217587">06431 217587</a><br><a href="mailto:info@schnitzel-s.com">info@schnitzel-s.com</a></p></div>
+      <div><h3 data-t="f_follow">Folgen</h3><p><a href="https://www.facebook.com/schnitzels" target="_blank" rel="noopener">Facebook</a></p></div>
     </div>
-    <p class="note">Entwurf einer neuen Website, nicht die offizielle Seite. Die Gerichtsfotos stammen von schnitzel-s.de und der Facebook-Seite von Schnitzel’s. Wo es noch kein Foto gibt, steht ein KI-generiertes Symbolbild, im Bild als solches markiert. Preise und Texte von schnitzel-s.de, Stand 17.11.2026.</p>
+    <p class="note" data-t="note">Entwurf einer neuen Website, nicht die offizielle Seite. Die Gerichtsfotos stammen von schnitzel-s.de und der Facebook-Seite von Schnitzel’s. Wo es noch kein Foto gibt, steht ein KI-generiertes Symbolbild, im Bild als solches markiert. Preise und Texte von schnitzel-s.de, Stand 17.11.2026.</p>
   </div>
 </footer>
 
-<script src="menu.js"></script>
+<script src="menu.js?v=3"></script>
+<script src="ru.js?v=3"></script>
 <script>
+  // Sprache: ?lang=ru im Link oder zuletzt gewählte, sonst Deutsch
+  let lang = new URLSearchParams(location.search).get("lang");
+  if (!lang) try { lang = localStorage.getItem("lang"); } catch {}
+  if (lang !== "ru") lang = "de";
+  const t = s => (lang === "ru" && RU[s] != null ? RU[s] : s);
+
   const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const price = ([l, p]) => `<span>${esc(l)}<b>${p} €</b></span>`;
+  const price = ([l, p]) => `<span>${esc(t(l))}<b>${p} €</b></span>`;
 
   // echte Fotos von schnitzel-s.de und Facebook, alle anderen sind KI-Symbolbilder
   const FOTO = new Set(["k-wiener", "k-zigeuner", "s-mahattma", "s-almoehi", "s-wiener", "g-gordon", "c-gabin", "c-weitweg", "c-mexico", "c-nyc", "c-oesi", "sa-schnitzels", "sa-nico", "m-kaesspatzen", "m-max", "m-lady", "d-kaiserschmarrn", "d-strudel", "d-eis", "m-rump", "ki-raeuber", "b-kroketten", "b-ecken"]);
   const dish = it => `
     <article class="dish${it.wide ? " wide" : ""}">
-      <div class="ph"><img src="img/${it.img}.webp" alt="${esc(it.n)}" loading="lazy" width="900" height="675">${FOTO.has(it.img) ? "" : `<span class="ki">KI-Symbolbild</span>`}</div>
+      <div class="ph"><img src="img/${it.img}.webp" alt="${esc(t(it.n))}" loading="lazy" width="900" height="675">${FOTO.has(it.img) ? "" : `<span class="ki">${t("KI-Symbolbild")}</span>`}</div>
       <div class="body">
-        <h3>${esc(it.n)}</h3>
-        <p>${esc(it.d)}</p>
+        <h3>${esc(t(it.n))}</h3>
+        <p>${esc(t(it.d))}</p>
         ${it.p ? `<div class="prices">${it.p.map(price).join("")}</div>` : ""}
       </div>
     </article>`;
 
   const section = c => `
     <section class="cat" id="${c.id}">
-      <div class="kicker">${esc(c.kicker)}</div>
-      <h2>${esc(c.title)}</h2>
-      ${c.intro ? `<p class="intro">${esc(c.intro)}</p>` : ""}
-      ${c.prices ? `<div class="pricebar">${c.prices.map(x => `<span>${esc(x.l)} <b>${x.p} €</b></span>`).join("")}</div>` : ""}
+      <div class="kicker">${esc(t(c.kicker))}</div>
+      <h2>${esc(t(c.title))}</h2>
+      ${c.intro ? `<p class="intro">${esc(t(c.intro))}</p>` : ""}
+      ${c.prices ? `<div class="pricebar">${c.prices.map(x => `<span>${esc(t(x.l))} <b>${x.p} €</b></span>`).join("")}</div>` : ""}
       <div class="grid">${c.items.map(dish).join("")}</div>
     </section>`;
 
-  const drinks = `
+  const drinks = () => `
     <section class="cat" id="getraenke">
-      <div class="kicker">Hopfen und Malz, Gott erhalt’s</div>
-      <h2>Getränke</h2>
+      <div class="kicker">${esc(t("Hopfen und Malz, Gott erhalt’s"))}</div>
+      <h2>${esc(t("Getränke"))}</h2>
       <div class="drinks">${DRINKS.map(g => `
-        <div class="box"><h3>${esc(g.t)}</h3>${g.rows.map(([n, d, ps]) => `
-          <div class="drow"><div>${esc(n)}${d ? `<small>${esc(d)}</small>` : ""}</div>
-          <div class="pp">${ps.map(([s, p]) => `${s ? esc(s) + " " : ""}<b>${p} €</b>`).join("<br>")}</div></div>`).join("")}
+        <div class="box"><h3>${esc(t(g.t))}</h3>${g.rows.map(([n, d, ps]) => `
+          <div class="drow"><div>${esc(t(n))}${d ? `<small>${esc(t(d))}</small>` : ""}</div>
+          <div class="pp">${ps.map(([s, p]) => `${s ? esc(t(s)) + " " : ""}<b>${p} €</b>`).join("<br>")}</div></div>`).join("")}
         </div>`).join("")}
       </div>
     </section>`;
 
-  document.getElementById("menu").innerHTML = MENU.map(section).join("") + drinks;
-  const cats = [...MENU.map(c => [c.id, c.title.replace("Schnitzel-", "")]), ["getraenke", "Getränke"]];
+  // feste Texte: deutsches Original merken, Russisch aus RU_UI
+  const fixed = [...document.querySelectorAll("[data-t]")];
+  fixed.forEach(e => (e.dataset.de = e.innerHTML));
+  const titleDe = document.title;
   const nav = document.getElementById("catnav");
-  nav.innerHTML = cats.map(([id, t]) => `<a href="#${id}">${esc(t)}</a>`).join("");
+  const langBtn = document.getElementById("lang");
+  let links = {}, secs = [], current;
+
+  function render() {
+    document.documentElement.lang = lang;
+    document.title = lang === "ru" ? RU_UI.title : titleDe;
+    fixed.forEach(e => (e.innerHTML = lang === "ru" ? RU_UI[e.dataset.t] ?? e.dataset.de : e.dataset.de));
+    langBtn.querySelectorAll("span").forEach(s => s.classList.toggle("on", s.dataset.l === lang));
+    document.getElementById("menu").innerHTML = MENU.map(section).join("") + drinks();
+    const cats = [...MENU.map(c => [c.id, c.title.replace("Schnitzel-", "")]), ["getraenke", "Getränke"]];
+    nav.innerHTML = cats.map(([id, s]) => `<a href="#${id}">${esc(t(s))}</a>`).join("");
+    links = Object.fromEntries([...nav.children].map(a => [a.hash.slice(1), a]));
+    secs = [...document.querySelectorAll("section.cat")];
+    current = undefined;
+    mark();
+  }
+
+  langBtn.addEventListener("click", () => {
+    lang = lang === "de" ? "ru" : "de";
+    try { localStorage.setItem("lang", lang); } catch {}
+    render();
+  });
 
   // aktive Kategorie in der Leiste markieren und sichtbar halten
-  const links = Object.fromEntries([...nav.children].map(a => [a.hash.slice(1), a]));
-  const secs = [...document.querySelectorAll("section.cat")];
-  let current;
   const mark = () => {
     // letzte Kategorie, deren Anfang schon unter der Leiste durch ist
     const s = secs.filter(s => s.getBoundingClientRect().top < 160).pop();
@@ -222,7 +281,7 @@
   };
   addEventListener("scroll", mark, { passive: true });
   addEventListener("load", mark);
-  mark();
+  render();
 </script>
 </body>
 </html>

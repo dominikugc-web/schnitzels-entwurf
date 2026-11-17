@@ -3,7 +3,7 @@
 const MENU = [
   {
     id: "klassiker", title: "Schnitzel-Klassiker", kicker: "Ihr Schnitzel, Ihre Wahl",
-    intro: "Schnitzel aussuchen (vom Schwein oder Hähnchenbrustfilet, paniert oder natur), Größe wählen, Soße wählen, Beilage dazu. Fertig.",
+    intro: "Schritt 3: Wählen Sie hier die Zubereitung oder Soße für Ihr Schnitzel. Der Preis richtet sich nach Fleisch und Größe.",
     prices: [
       { l: "Schwein, 1 Schnitzel", p: "13,90" }, { l: "Schwein, 2 Schnitzel", p: "17,90" },
       { l: "Hähnchen, 1 Schnitzel", p: "14,90" }, { l: "Hähnchen, 2 Schnitzel", p: "19,90" },
