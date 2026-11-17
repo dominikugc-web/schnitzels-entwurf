@@ -121,6 +121,52 @@
   footer h3 { color: var(--gold); font-size: 20px; margin-bottom: 8px; }
   footer p { margin: 0 0 6px; }
   .note { margin-top: 32px; padding-top: 18px; border-top: 1px solid rgb(255 255 255 / .15); font-size: 14px; color: rgb(255 255 255 / .6); }
+  /* Schnitzelteller-Assistent */
+  button.btn { font: inherit; font-weight: 700; border: 0; cursor: pointer; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+  .btn-line { background: none; border: 2px solid var(--line) !important; color: var(--wine); }
+  .how .btn { margin-bottom: 20px; }
+  body:has(#wiz[open]) { overflow: hidden; }
+  #wiz { padding: 0; border: 0; width: min(760px, 100% - 32px); height: min(880px, 100dvh - 48px); max-width: 100%; max-height: 100dvh; border-radius: var(--radius); background: var(--paper); color: var(--ink); }
+  #wiz[open] { display: flex; flex-direction: column; }
+  #wiz::backdrop { background: rgb(30 8 15 / .65); }
+  @media (max-width: 619px) { #wiz { width: 100%; height: 100dvh; border-radius: 0; } }
+  .whead { position: relative; background: var(--wine-dark); color: #fff; padding: 16px 64px 18px 20px; }
+  .whead small { color: rgb(255 255 255 / .7); font-size: 13px; font-weight: 600; }
+  .whead h2 { color: var(--gold); font-size: clamp(24px, 5vw, 30px); margin-top: 2px; }
+  .whead p { margin: 4px 0 0; font-size: 14px; color: rgb(255 255 255 / .8); }
+  .whead p:empty { display: none; }
+  .wprog { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgb(255 255 255 / .12); }
+  #wiz-bar { height: 100%; width: 0; background: var(--gold); transition: width .25s; }
+  .wx { position: absolute; top: 12px; right: 12px; width: 42px; height: 42px; border-radius: 50%; border: 0; background: rgb(255 255 255 / .14); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
+  .wbody { flex: 1; overflow-y: auto; padding: 16px; }
+  .wgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (min-width: 620px) { .wgrid { grid-template-columns: repeat(3, 1fr); } }
+  .wcard, .wrow, .chip { font: inherit; color: inherit; cursor: pointer; border: 2px solid var(--line); background: var(--card); position: relative; }
+  .wcard { padding: 0; border-radius: 14px; overflow: hidden; text-align: left; display: flex; flex-direction: column; }
+  .wcard img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+  .wt { padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 2px; }
+  .wt b { font-size: 15px; line-height: 1.2; }
+  .wt small, .wrow small { color: var(--muted); font-size: 13px; }
+  .wt em, .wrow em { font-style: normal; font-weight: 700; color: var(--wine); font-size: 14px; }
+  .wrow { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px 48px 12px 14px; border-radius: 12px; margin-bottom: 8px; }
+  .wcard.on, .wrow.on { border-color: var(--wine); background: #fff; }
+  .wcard.on::before, .wrow.on::before { content: "✓"; position: absolute; top: 8px; right: 8px; z-index: 1; width: 28px; height: 28px; border-radius: 50%; background: var(--wine); color: #fff; display: grid; place-items: center; font-weight: 700; }
+  .wrow.on::before { top: 50%; right: 10px; transform: translateY(-50%); }
+  .chips { display: flex; gap: 8px; margin-bottom: 14px; }
+  .chip { padding: 10px 18px; border-radius: 999px; font-weight: 700; }
+  .chip.on { background: var(--wine); border-color: var(--wine); color: #fff; }
+  .wsec h3 { color: var(--wine); font-size: 19px; margin: 8px 0 10px; }
+  .wsum { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 6px 16px; }
+  .wsum > div { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px dashed var(--line); }
+  .wsum > div:first-child { border-top: 0; }
+  .wsum em { font-style: normal; white-space: nowrap; }
+  .wsum .wtotal { border-top: 2px solid var(--wine); font: 800 20px Fraunces, serif; color: var(--wine); }
+  .whint { color: var(--muted); font-size: 14px; }
+  .wfoot { display: flex; justify-content: space-between; gap: 10px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--card); border-top: 1px solid var(--line); }
+  .wfoot .btn { flex: 1; justify-content: center; }
+  .wfoot [hidden] { display: none; }
+
   :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .dish { transition: none; } }
 </style>
@@ -143,8 +189,8 @@
     <h1 data-t="hero_h1">Schnitzel dich glücklich!</h1>
     <p data-t="hero_p">Klassisch, gefüllt, überbacken oder mit ausgefallenem Topping. Bei uns spielt das Schnitzel die Hauptrolle, und Sie stellen es sich so zusammen, wie es Ihnen am besten schmeckt.</p>
     <div class="row">
-      <a class="btn btn-gold" href="#klassiker" data-t="to_menu">Zur Speisekarte</a>
-      <a class="btn btn-ghost" href="tel:+496431217587">06431 217587</a>
+      <button type="button" class="btn btn-gold" data-wiz data-t="wiz_btn">Schnitzelteller zusammenstellen</button>
+      <a class="btn btn-ghost" href="#klassiker" data-t="to_menu">Zur Speisekarte</a>
     </div>
   </div>
 </section>
@@ -153,6 +199,7 @@
   <section class="how" aria-labelledby="how-h">
     <h2 id="how-h" data-t="how_h">So stellen Sie Ihr Schnitzel zusammen</h2>
     <p data-t="how_p">Natürlich haben die Schnitzel im Schnitzel’s einen ganz besonderen Stellenwert. Bei uns stellen Sie sich Ihr Schnitzelgericht nach Herzenslust zusammen, genau so, wie es Ihnen am besten schmeckt.</p>
+    <button type="button" class="btn btn-gold" data-wiz data-t="wiz_btn">Schnitzelteller zusammenstellen</button>
     <ol class="steps">
       <li><span class="n">1</span><div><h3 data-t="s1_h">Schnitzel aussuchen</h3><p data-t="s1_p">Vom Schwein oder aus dem Hähnchenbrustfilet, paniert oder natur</p></div></li>
       <li><span class="n">2</span><div><h3 data-t="s2_h">Größe auswählen</h3><p data-t="s2_p">1 Schnitzel oder 2 Schnitzel<br><strong>Schwein:</strong> 1 Stück 13,90 €, 2 Stück 17,90 €<br><strong>Hähnchen:</strong> 1 Stück 14,90 €, 2 Stück 19,90 €</p></div></li>
@@ -196,8 +243,20 @@
   </div>
 </footer>
 
-<script src="menu.js?v=3"></script>
-<script src="ru.js?v=3"></script>
+<dialog id="wiz" aria-labelledby="wiz-h">
+  <div class="whead">
+    <small id="wiz-step"></small>
+    <h2 id="wiz-h"></h2>
+    <p id="wiz-hint"></p>
+    <button type="button" class="wx" id="wiz-x" aria-label="Schließen">×</button>
+    <div class="wprog"><div id="wiz-bar"></div></div>
+  </div>
+  <div class="wbody" id="wiz-body"></div>
+  <div class="wfoot" id="wiz-foot"></div>
+</dialog>
+
+<script src="menu.js?v=4"></script>
+<script src="ru.js?v=4"></script>
 <script>
   // Sprache: ?lang=ru im Link oder zuletzt gewählte, sonst Deutsch
   let lang = new URLSearchParams(location.search).get("lang");
@@ -283,5 +342,6 @@
   addEventListener("load", mark);
   render();
 </script>
+<script src="wizard.js?v=4"></script>
 </body>
 </html>
