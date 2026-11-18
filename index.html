@@ -86,9 +86,12 @@
   .kicker { text-transform: uppercase; letter-spacing: .12em; font-size: 13px; font-weight: 700; color: var(--gold-deep); }
   section.cat h2 { font-size: clamp(30px, 5vw, 42px); color: var(--wine); margin: 4px 0 10px; }
   .intro { max-width: 720px; color: var(--muted); margin: 0 0 18px; }
-  .pricebar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
-  .pricebar span { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
-  .pricebar b { color: var(--wine); }
+  .pricebox { display: grid; gap: 10px; margin-bottom: 22px; }
+  @media (min-width: 620px) { .pricebox { grid-template-columns: 1fr 1fr; max-width: 720px; } }
+  .pricebox div { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; }
+  .pricebox strong { display: block; font-family: Fraunces, serif; font-size: 18px; color: var(--wine); margin-bottom: 4px; }
+  .pricebox span { display: flex; justify-content: space-between; color: var(--muted); }
+  .pricebox span b { color: var(--wine); }
   .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
   @media (min-width: 620px) { .grid { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 980px) { .grid { grid-template-columns: repeat(3, 1fr); } }
@@ -102,10 +105,22 @@
   .dish h3 { font-size: 21px; }
   .dish p { margin: 0; color: var(--muted); font-size: 16px; flex: 1; }
   .prices { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; }
-  .prices span { font-size: 14px; color: var(--muted); }
-  .prices b { font-family: Fraunces, serif; font-size: 20px; color: var(--wine); margin-left: 4px; }
+  .prices span { font-size: 14px; color: var(--muted); display: inline-flex; align-items: baseline; gap: 4px; }
+  .prices b { font-family: Fraunces, serif; font-size: 20px; color: var(--wine); }
   .dish.wide { grid-column: 1 / -1; }
   @media (min-width: 620px) { .dish.wide { flex-direction: row; } .dish.wide .ph { flex: 1.2; aspect-ratio: auto; min-height: 280px; } .dish.wide .body { flex: 1; justify-content: center; padding: 28px; } }
+  /* Handy: kompakte Kartenliste wie auf der Original-Website, kleines Bild links */
+  @media (max-width: 619px) {
+    .grid { gap: 10px; }
+    .dish { flex-direction: row; }
+    .dish .ph { flex: 0 0 104px; height: 104px; aspect-ratio: auto; }
+    .dish .ki { left: 4px; bottom: 4px; font-size: 9px; padding: 1px 5px; }
+    .dish .body { padding: 10px 12px; gap: 2px; }
+    .dish h3 { font-size: 18px; }
+    .dish p { font-size: 14px; line-height: 1.4; }
+    .prices { margin-top: 4px; gap: 2px 12px; }
+    .prices b { font-size: 17px; }
+  }
 
   /* Getränke */
   .drinks { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
@@ -284,7 +299,8 @@
       <div class="kicker">${esc(t(c.kicker))}</div>
       <h2>${esc(t(c.title))}</h2>
       ${c.intro ? `<p class="intro">${esc(t(c.intro))}</p>` : ""}
-      ${c.prices ? `<div class="pricebar">${c.prices.map(x => `<span>${esc(t(x.l))} <b>${x.p} €</b></span>`).join("")}</div>` : ""}
+      ${c.prices ? `<div class="pricebox">${["Schwein", "Hähnchen"].map((m, i) => `<div><strong>${esc(t("Klassiker vom " + m))}</strong>${c.prices.slice(i * 2, i * 2 + 2).map(x =>
+        `<span>${esc(t(x.l.split(", ")[1]))}<b>${x.p} €</b></span>`).join("")}</div>`).join("")}</div>` : ""}
       <div class="grid">${c.items.map(dish).join("")}</div>
     </section>`;
 
